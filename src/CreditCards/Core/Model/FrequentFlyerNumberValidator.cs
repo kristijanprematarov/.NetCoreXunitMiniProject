@@ -13,7 +13,7 @@ namespace CreditCards.Core.Model
     /// Member numbers consist of 6 numeric digits<br/><br/>
     /// Scheme identifiers are a single uppercase alphabetic character
     /// </summary>
-    public class FrequentFlyerNumberValidator
+    public class FrequentFlyerNumberValidator : IFrequentFlyerNumberValidator
     {
         private readonly char[] _validSchemeIdentifiers = { 'A', 'Q', 'Y' };
         private const int ExpectedTotalLength = 8;//MemberNumberLength + 1 + SchemeIdentifierLength(1) == 8
@@ -33,13 +33,13 @@ namespace CreditCards.Core.Model
 
             var memberNumberPart = frequentFlyerNumber.Substring(0, ExpectedMemberNumberLength);
 
-            if (!int.TryParse(memberNumberPart, NumberStyles.None,null,out int _))
+            if (!int.TryParse(memberNumberPart, NumberStyles.None, null, out int _))
             {
                 return false;
             }
 
             var schemeIdentifier = frequentFlyerNumber.Last();
-            return _validSchemeIdentifiers.Contains(schemeIdentifier);            
+            return _validSchemeIdentifiers.Contains(schemeIdentifier);
         }
     }
 }

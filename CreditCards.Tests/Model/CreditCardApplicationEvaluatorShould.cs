@@ -15,7 +15,7 @@ namespace CreditCards.Tests.Model
         [InlineData(int.MaxValue)]
         public void AcceptAllHighIncomeApplicants(int income)
         {
-            var sut = new CreditCardApplicationEvaluator();
+            var sut = new CreditCardApplicationEvaluator(new FrequentFlyerNumberValidator());
 
             var application = new CreditCardApplication()
             {
@@ -32,7 +32,7 @@ namespace CreditCards.Tests.Model
         [InlineData(int.MinValue)]
         public void ReferYoungApplicantsWhoAreNotHighIncome(int age)
         {
-            var sut = new CreditCardApplicationEvaluator();
+            var sut = new CreditCardApplicationEvaluator(new FrequentFlyerNumberValidator());
 
             var application = new CreditCardApplication()
             {
@@ -49,7 +49,7 @@ namespace CreditCards.Tests.Model
         [InlineData(ExpectedHighIncomeThreshhold - 1)]
         public void ReferYoungApplicantsWhoAreMiddleIncome(int income)
         {
-            var sut = new CreditCardApplicationEvaluator();
+            var sut = new CreditCardApplicationEvaluator(new FrequentFlyerNumberValidator());
 
             var application = new CreditCardApplication()
             {
@@ -66,7 +66,7 @@ namespace CreditCards.Tests.Model
         [InlineData(int.MinValue)]
         public void DeclineAllAplicantsWhoAreLowIncome(int income)
         {
-            var sut = new CreditCardApplicationEvaluator();
+            var sut = new CreditCardApplicationEvaluator(new FrequentFlyerNumberValidator());
 
             var application = new CreditCardApplication()
             {

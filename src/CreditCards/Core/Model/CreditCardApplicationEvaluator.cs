@@ -11,6 +11,12 @@ namespace CreditCards.Core.Model
         private const int AutoReferralMaxAge = 20;
         private const int LowIncomeThreshhold = 20_000;
         private const int HighIncomeThreshhold = 100_000;
+        private readonly IFrequentFlyerNumberValidator _frequentFlyerNumberValidator;
+
+        public CreditCardApplicationEvaluator(IFrequentFlyerNumberValidator frequentFlyerNumberValidator)
+        {
+            _frequentFlyerNumberValidator = frequentFlyerNumberValidator;
+        }
 
         public CreditCardApplicationDecision Evaluate(CreditCardApplication application)
         {
