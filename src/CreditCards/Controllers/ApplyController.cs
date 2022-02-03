@@ -33,7 +33,8 @@ namespace CreditCards.Controllers
                 FirstName = applicationDetails.FirstName,
                 LastName = applicationDetails.LastName,
                 Age = applicationDetails.Age.Value,
-                GrossAnnualIncome = applicationDetails.GrossAnnualIncome.Value
+                GrossAnnualIncome = applicationDetails.GrossAnnualIncome.Value,
+                FrequentFlyerNumber = applicationDetails.FrequentFlyerNumber
             };
 
             await _applicationRepository.AddAsync(creditCardApplication);
