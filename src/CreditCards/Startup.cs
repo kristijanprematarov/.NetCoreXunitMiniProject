@@ -24,17 +24,30 @@ namespace CreditCards
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+
+            CurrentEnvironment = env;
         }
 
         public IConfigurationRoot Configuration { get; }
+
+        private IHostingEnvironment CurrentEnvironment { get; }
    
  
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(
-                options => options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            if (CurrentEnvironment.IsDevelopment())
+            {
+                services.AddDbContext<AppDbContext>(
+                        options => options.UseInMemoryDatabase()
+                    );
+            }
+            else
+            {
+                services.AddDbContext<AppDbContext>(
+               options => options.UseSqlServer(
+                   Configuration.GetConnectionString("DefaultConnection")));
+            }
 
             services.AddScoped<ICreditCardApplicationRepository, 
                                EntityFrameworkCreditCardApplicationRepository>();
